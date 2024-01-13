@@ -2,9 +2,9 @@
 
 echo "Pushing images to Docker Hub..."
 
-docker push slimdeluxe/php:7.4
-docker push slimdeluxe/php:8.1
-docker push slimdeluxe/php:8.2
+docker push slimdeluxe/php:7.4-v1.0
+docker push slimdeluxe/php:8.1-v1.0
+docker push slimdeluxe/php:8.2-v1.0
 
 echo "Push done!"
 
