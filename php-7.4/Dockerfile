@@ -48,13 +48,22 @@ RUN wget https://ftp.gnu.org/gnu/screen/screen-5.0.0.tar.gz && \
     cd .. && \
     rm -rf screen-5.0.0 screen-5.0.0.tar.gz
 
-# Install zsh and ohmyzsh
+# Install zsh
 RUN apt-get install -y zsh
+
+# Set zsh as the default shell
+RUN chsh -s /bin/zsh www-data
+
+# Switch to www-data user
 USER www-data
 
+# Shell choice fix, since the above chsh does not work in Lando
+RUN echo 'if [ -t 1 ]; then\n  exec /bin/zsh\nfi' > /var/www/.bashrc
+
+# Install oh-my-zsh
 RUN cd /var/www && \
     wget https://install.ohmyz.sh -O install.sh && \
-    CHSH=yes RUNZSH=no KEEP_ZSHRC=no sh install.sh && \
+    CHSH=no RUNZSH=no KEEP_ZSHRC=no sh install.sh && \
     rm install.sh
 
 # Create default .zshrc in home directory
