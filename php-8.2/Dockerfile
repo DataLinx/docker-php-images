@@ -4,7 +4,7 @@ FROM devwithlando/php:8.2-fpm-4
 RUN apt-get update && apt-get -y upgrade
 
 # Install system tools
-RUN apt-get install -y tree nano
+RUN apt-get install -y tree nano supervisor sudo cron
 
 # Install locales
 RUN apt-get install -y locales locales-all
@@ -73,3 +73,6 @@ plugins=(git laravel)\n\
 source $ZSH/oh-my-zsh.sh\n' > ~/.zshrc
 
 USER root
+
+# Add www-data user to sudoers, to allow sudo commands in lando events
+RUN echo 'www-data ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/www-data
